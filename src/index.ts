@@ -398,23 +398,23 @@ async function run(): Promise<void> {
         }
 
         const header =
-            `<strong>${name} : ${before}</strong> <i>(old)</i> ` +
+            `<strong>${name} : ${before}</strong> <i>(old)</i>&nbsp; ` +
             `${triPills(beforeDirect.c, beforeDirect.h, beforeDirect.m, 'Before (direct)')}` +
             (beforeTrans.c || beforeTrans.h || beforeTrans.m
                 ? ` <strong>&nbsp;+&nbsp;</strong> ${triPills(beforeTrans.c, beforeTrans.h, beforeTrans.m, 'Before (transitive)')}`
                 : '') +
             ` &nbsp;<strong>→</strong>&nbsp; ` +
-            `<strong>${after}</strong> <i>(new)</i> ${triPills(afterDirect.c, afterDirect.h, afterDirect.m, 'After (direct)')}` +
+            `<strong>${after}</strong> <i>(new)</i>&nbsp; ${triPills(afterDirect.c, afterDirect.h, afterDirect.m, 'After (direct)')}` +
             (afterTrans.c || afterTrans.h || afterTrans.m
                 ? ` <strong>&nbsp;+&nbsp;</strong> ${triPills(afterTrans.c, afterTrans.h, afterTrans.m, 'After (transitive)')}`
                 : '');
 
         commentBody += startDetails(header);
 
-        commentBody += `**Before \`${before}\`**\n\n`;
+        commentBody += `**Old version: \`${before}\`**\n\n`;
         commentBody += renderAlertsTable(beforeSummary);
 
-        commentBody += `\n\n**After \`${after}\`**\n\n`;
+        commentBody += `\n\n**New version: \`${after}\`**\n\n`;
         commentBody += renderAlertsTable(afterSummary);
 
         commentBody += endDetails();

@@ -38493,15 +38493,15 @@ async function run() {
             afterTrans.m += getNumberOfViolations(cs, 2, 3);
           }
         }
-        const header = `<strong>${name} : ${before}</strong> <i>(old)</i> ${triPills(beforeDirect.c, beforeDirect.h, beforeDirect.m, "Before (direct)")}` + (beforeTrans.c || beforeTrans.h || beforeTrans.m ? ` <strong>&nbsp;+&nbsp;</strong> ${triPills(beforeTrans.c, beforeTrans.h, beforeTrans.m, "Before (transitive)")}` : "") + ` &nbsp;<strong>\u2192</strong>&nbsp; <strong>${after}</strong> <i>(new)</i> ${triPills(afterDirect.c, afterDirect.h, afterDirect.m, "After (direct)")}` + (afterTrans.c || afterTrans.h || afterTrans.m ? ` <strong>&nbsp;+&nbsp;</strong> ${triPills(afterTrans.c, afterTrans.h, afterTrans.m, "After (transitive)")}` : "");
+        const header = `<strong>${name} : ${before}</strong> <i>(old)</i>&nbsp; ${triPills(beforeDirect.c, beforeDirect.h, beforeDirect.m, "Before (direct)")}` + (beforeTrans.c || beforeTrans.h || beforeTrans.m ? ` <strong>&nbsp;+&nbsp;</strong> ${triPills(beforeTrans.c, beforeTrans.h, beforeTrans.m, "Before (transitive)")}` : "") + ` &nbsp;<strong>\u2192</strong>&nbsp; <strong>${after}</strong> <i>(new)</i>&nbsp; ${triPills(afterDirect.c, afterDirect.h, afterDirect.m, "After (direct)")}` + (afterTrans.c || afterTrans.h || afterTrans.m ? ` <strong>&nbsp;+&nbsp;</strong> ${triPills(afterTrans.c, afterTrans.h, afterTrans.m, "After (transitive)")}` : "");
         commentBody += startDetails(header);
-        commentBody += `**Before \`${before}\`**
+        commentBody += `**Old version: \`${before}\`**
 
 `;
         commentBody += renderAlertsTable(beforeSummary);
         commentBody += `
 
-**After \`${after}\`**
+**New version: \`${after}\`**
 
 `;
         commentBody += renderAlertsTable(afterSummary);
