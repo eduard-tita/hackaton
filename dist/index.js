@@ -38332,10 +38332,10 @@ function triPills(c, h, m, title = "") {
   const t = title ? ` title="${title}"` : "";
   return `<span${t}>` + shield("C", c, SEV.critical) + "&nbsp;" + shield("H", h, SEV.high) + "&nbsp;" + shield("M", m, SEV.medium) + `</span>`;
 }
-function componentSummaryLine(name, version, direct, trans) {
-  let s = `<strong>${name} ${version}</strong> &nbsp;\u2022&nbsp; ${triPills(direct.c, direct.h, direct.m, "Direct findings")}`;
+function componentSummaryLine(name, version, label, direct, trans) {
+  let s = `<strong>${name} ${version}</strong> *(${label})* &nbsp; ${triPills(direct.c, direct.h, direct.m, "Direct findings")}`;
   if (trans && (trans.c || trans.h || trans.m)) {
-    s += ` &nbsp;\u2014&nbsp; ${triPills(trans.c, trans.h, trans.m, "Transitive findings")}`;
+    s += ` &nbsp;+&nbsp; ${triPills(trans.c, trans.h, trans.m, "Transitive findings")}`;
   }
   return s;
 }
@@ -38402,10 +38402,10 @@ async function run() {
     const introducedCount = introduced.length;
     const removedCount = removed.length;
     const upgradeCount = upgrades.length;
-    let commentBody = `# \u{1F9EA} Nexus IQ \u2022 PR Risk Dashboard
+    let commentBody = `## \u{1F9EA} Sonatype IQ \u2022 PR Risk Dashboard
 
 `;
-    commentBody += `> Snapshot of dependency policy risk introduced by this PR.
+    commentBody += `*Snapshot of dependency policy risk introduced by this PR*
 
 `;
     commentBody += statRow(introducedCount, upgradeCount, removedCount) + "\n";
@@ -38430,7 +38430,7 @@ async function run() {
             trans.m += getNumberOfViolations(childSummary, 2, 3);
           }
         }
-        const header = componentSummaryLine(nameOf(dep), versionOf(dep), direct, trans);
+        const header = componentSummaryLine(nameOf(dep), versionOf(dep), "new", direct, trans);
         commentBody += startDetails(header);
         commentBody += renderAlertsTable(directSummary);
         if (dep.children?.length) {
@@ -38490,7 +38490,7 @@ async function run() {
             afterTrans.m += getNumberOfViolations(cs, 2, 3);
           }
         }
-        const header = `<strong>${name}</strong> &nbsp;\`${before}\` ${triPills(beforeDirect.c, beforeDirect.h, beforeDirect.m, "Before (direct)")}` + (beforeTrans.c || beforeTrans.h || beforeTrans.m ? ` &nbsp;\u2014&nbsp; ${triPills(beforeTrans.c, beforeTrans.h, beforeTrans.m, "Before (transitive)")}` : "") + ` &nbsp;\u2192&nbsp; \`${after}\` ${triPills(afterDirect.c, afterDirect.h, afterDirect.m, "After (direct)")}` + (afterTrans.c || afterTrans.h || afterTrans.m ? ` &nbsp;\u2014&nbsp; ${triPills(afterTrans.c, afterTrans.h, afterTrans.m, "After (transitive)")}` : "");
+        const header = `<strong>${name}</strong> &nbsp;\`${before}\` ${triPills(beforeDirect.c, beforeDirect.h, beforeDirect.m, "Before (direct)")}` + (beforeTrans.c || beforeTrans.h || beforeTrans.m ? ` &nbsp;+&nbsp; ${triPills(beforeTrans.c, beforeTrans.h, beforeTrans.m, "Before (transitive)")}` : "") + ` &nbsp;\u2192&nbsp; \`${after}\` ${triPills(afterDirect.c, afterDirect.h, afterDirect.m, "After (direct)")}` + (afterTrans.c || afterTrans.h || afterTrans.m ? ` &nbsp;+&nbsp; ${triPills(afterTrans.c, afterTrans.h, afterTrans.m, "After (transitive)")}` : "");
         commentBody += startDetails(header);
         commentBody += `**Before \`${before}\`**
 
@@ -38526,7 +38526,7 @@ async function run() {
             trans.m += getNumberOfViolations(childSummary, 2, 3);
           }
         }
-        const header = componentSummaryLine(nameOf(dep), versionOf(dep), direct, trans);
+        const header = componentSummaryLine(nameOf(dep), versionOf(dep), "old", direct, trans);
         commentBody += startDetails(header);
         commentBody += renderAlertsTable(directSummary);
         if (dep.children?.length) {

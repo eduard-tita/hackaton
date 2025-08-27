@@ -215,12 +215,13 @@ function triPills(c: number, h: number, m: number, title = '') {
 function componentSummaryLine(
     name: string,
     version: string,
+    label: string,
     direct: { c: number; h: number; m: number },
     trans?: { c: number; h: number; m: number }
 ) {
-  let s = `<strong>${name} ${version}</strong> &nbsp;•&nbsp; ${triPills(direct.c, direct.h, direct.m, 'Direct findings')}`;
+  let s = `<strong>${name} ${version}</strong> *(${label})* &nbsp; ${triPills(direct.c, direct.h, direct.m, 'Direct findings')}`;
   if (trans && (trans.c || trans.h || trans.m)) {
-    s += ` &nbsp;—&nbsp; ${triPills(trans.c, trans.h, trans.m, 'Transitive findings')}`;
+    s += ` &nbsp;+&nbsp; ${triPills(trans.c, trans.h, trans.m, 'Transitive findings')}`;
   }
   return s;
 }
@@ -299,8 +300,8 @@ async function run(): Promise<void> {
     const removedCount = removed.length;
     const upgradeCount = upgrades.length;
 
-    let commentBody = `# 🧪 Nexus IQ • PR Risk Dashboard\n\n`;
-    commentBody += `> Snapshot of dependency policy risk introduced by this PR.\n\n`;
+    let commentBody = `## 🧪 Sonatype IQ • PR Risk Dashboard\n\n`;
+    commentBody += `*Snapshot of dependency policy risk introduced by this PR*\n\n`;
     commentBody += statRow(introducedCount, upgradeCount, removedCount) + '\n';
     commentBody += legendDetails();
 
@@ -329,7 +330,7 @@ async function run(): Promise<void> {
           }
         }
 
-        const header = componentSummaryLine(nameOf(dep), versionOf(dep), direct, trans);
+        const header = componentSummaryLine(nameOf(dep), versionOf(dep), 'new', direct, trans);
         commentBody += startDetails(header);
 
         // Direct findings
@@ -400,12 +401,12 @@ async function run(): Promise<void> {
             `<strong>${name}</strong> &nbsp;` +
             `\`${before}\` ${triPills(beforeDirect.c, beforeDirect.h, beforeDirect.m, 'Before (direct)')}` +
             (beforeTrans.c || beforeTrans.h || beforeTrans.m
-                ? ` &nbsp;—&nbsp; ${triPills(beforeTrans.c, beforeTrans.h, beforeTrans.m, 'Before (transitive)')}`
+                ? ` &nbsp;+&nbsp; ${triPills(beforeTrans.c, beforeTrans.h, beforeTrans.m, 'Before (transitive)')}`
                 : '') +
             ` &nbsp;→&nbsp; ` +
             `\`${after}\` ${triPills(afterDirect.c, afterDirect.h, afterDirect.m, 'After (direct)')}` +
             (afterTrans.c || afterTrans.h || afterTrans.m
-                ? ` &nbsp;—&nbsp; ${triPills(afterTrans.c, afterTrans.h, afterTrans.m, 'After (transitive)')}`
+                ? ` &nbsp;+&nbsp; ${triPills(afterTrans.c, afterTrans.h, afterTrans.m, 'After (transitive)')}`
                 : '');
 
         commentBody += startDetails(header);
@@ -446,7 +447,7 @@ async function run(): Promise<void> {
           }
         }
 
-        const header = componentSummaryLine(nameOf(dep), versionOf(dep), direct, trans);
+        const header = componentSummaryLine(nameOf(dep), versionOf(dep), 'old', direct, trans);
         commentBody += startDetails(header);
 
         // Direct table
