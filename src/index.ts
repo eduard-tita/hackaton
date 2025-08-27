@@ -243,7 +243,7 @@ function legendDetails() {
 async function run(): Promise<void> {
   try {
     // --- Read dependency trees ---
-    let filePath = path.resolve(process.cwd(), 'source-dependency-tree.txt');
+    let filePath = path.resolve(process.cwd(), 'source-temp', 'source-dependency-tree.txt');
     const sourceDependencyTree = readFileSync(filePath, 'utf-8');
     core.info('Successfully read source-dependency-tree.txt');
     sourceDependencyTree.split('\n').slice(0, 20).forEach((line, index) => core.info(`${index + 1}: ${line}`));
@@ -265,6 +265,7 @@ async function run(): Promise<void> {
     const removed = removedRaw.filter(d => !upgrades.some(u => keyOf(u.from) === keyOf(d)));
 
     if (introduced.length === 0 && removed.length === 0 && upgrades.length === 0) {
+      core.info('No dependency changes detected.');
       await postComment('No dependency changes detected.');
       return;
     }
