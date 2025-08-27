@@ -38406,13 +38406,11 @@ async function run() {
     const introducedCount = introduced.length;
     const removedCount = removed.length;
     const upgradeCount = upgrades.length;
-    let commentBody = `## \u{1F9EA} Sonatype IQ \u2022 PR Risk Dashboard
-
-`;
-    commentBody += `*Snapshot of dependency policy risk introduced by this PR*
+    let commentBody = `## \u{1F9EA} Sonatype IQ \u2022 Risk Dashboard
 
 `;
     commentBody += statRow(introducedCount, upgradeCount, removedCount) + "\n";
+    commentBody += "\n---\n\n";
     if (introduced.length) {
       commentBody += sectionHeading("\u2795", "New Components");
       for (const dep of introduced) {
