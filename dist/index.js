@@ -38333,9 +38333,9 @@ function triPills(c, h, m, title = "") {
   return `<span${t}>` + shield("C", c, SEV.critical) + "&nbsp;" + shield("H", h, SEV.high) + "&nbsp;" + shield("M", m, SEV.medium) + `</span>`;
 }
 function componentSummaryLine(name, version, label, direct, trans) {
-  let s = `<strong>${name} ${version}</strong> <i>(${label})</i> ${triPills(direct.c, direct.h, direct.m, "Direct findings")}`;
+  let s = `<strong>${name} : ${version}</strong> <i>(${label})</i>&nbsp; ${triPills(direct.c, direct.h, direct.m, "Direct findings")}`;
   if (trans && (trans.c || trans.h || trans.m)) {
-    s += ` &nbsp;+&nbsp; ${triPills(trans.c, trans.h, trans.m, "Transitive findings")}`;
+    s += ` <strong>&nbsp;+&nbsp;</strong> ${triPills(trans.c, trans.h, trans.m, "Transitive findings")}`;
   }
   return s;
 }
@@ -38346,7 +38346,9 @@ function sectionHeading(emoji, text) {
 `;
 }
 function legendDetails() {
-  return `---
+  return `
+---
+
 <details><summary>Legend & Colors</summary>
 
 **Severity:** ${shield("C", "Critical", SEV.critical)} ${shield("H", "High", SEV.high)} ${shield("M", "Medium", SEV.medium)}  
@@ -38491,7 +38493,7 @@ async function run() {
             afterTrans.m += getNumberOfViolations(cs, 2, 3);
           }
         }
-        const header = `<strong>${name} : ${before}</strong> <i>(old)</i> ${triPills(beforeDirect.c, beforeDirect.h, beforeDirect.m, "Before (direct)")}` + (beforeTrans.c || beforeTrans.h || beforeTrans.m ? ` &nbsp;+&nbsp; ${triPills(beforeTrans.c, beforeTrans.h, beforeTrans.m, "Before (transitive)")}` : "") + ` &nbsp;\u2192&nbsp; <strong>${after}</strong> <i>(new)</i> ${triPills(afterDirect.c, afterDirect.h, afterDirect.m, "After (direct)")}` + (afterTrans.c || afterTrans.h || afterTrans.m ? ` &nbsp;+&nbsp; ${triPills(afterTrans.c, afterTrans.h, afterTrans.m, "After (transitive)")}` : "");
+        const header = `<strong>${name} : ${before}</strong> <i>(old)</i> ${triPills(beforeDirect.c, beforeDirect.h, beforeDirect.m, "Before (direct)")}` + (beforeTrans.c || beforeTrans.h || beforeTrans.m ? ` <strong>&nbsp;+&nbsp;</strong> ${triPills(beforeTrans.c, beforeTrans.h, beforeTrans.m, "Before (transitive)")}` : "") + ` &nbsp;<strong>\u2192</strong>&nbsp; <strong>${after}</strong> <i>(new)</i> ${triPills(afterDirect.c, afterDirect.h, afterDirect.m, "After (direct)")}` + (afterTrans.c || afterTrans.h || afterTrans.m ? ` <strong>&nbsp;+&nbsp;</strong> ${triPills(afterTrans.c, afterTrans.h, afterTrans.m, "After (transitive)")}` : "");
         commentBody += startDetails(header);
         commentBody += `**Before \`${before}\`**
 
