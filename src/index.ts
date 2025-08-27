@@ -219,7 +219,7 @@ function componentSummaryLine(
     direct: { c: number; h: number; m: number },
     trans?: { c: number; h: number; m: number }
 ) {
-  let s = `<strong>${name} ${version}</strong> *(${label})* &nbsp; ${triPills(direct.c, direct.h, direct.m, 'Direct findings')}`;
+  let s = `<strong>${name} ${version}</strong> <i>(${label})</i> ${triPills(direct.c, direct.h, direct.m, 'Direct findings')}`;
   if (trans && (trans.c || trans.h || trans.m)) {
     s += ` &nbsp;+&nbsp; ${triPills(trans.c, trans.h, trans.m, 'Transitive findings')}`;
   }
@@ -231,7 +231,7 @@ function sectionHeading(emoji: string, text: string) {
 }
 
 function legendDetails() {
-  return `<details><summary>Legend & Colors</summary>
+  return `---\n<details><summary>Legend & Colors</summary>
 
 **Severity:** ${shield('C', 'Critical', SEV.critical)} ${shield('H', 'High', SEV.high)} ${shield('M', 'Medium', SEV.medium)}  
 **Badges:** numbers show count of policy violations at that severity.
@@ -353,7 +353,7 @@ async function run(): Promise<void> {
 
     // === Version Changes ===
     if (upgrades.length) {
-      commentBody += sectionHeading('⬆️', 'Version Changes');
+      commentBody += sectionHeading('⬆️', 'Updated Components');
 
       for (const u of upgrades) {
         const name = u.name;
@@ -398,13 +398,13 @@ async function run(): Promise<void> {
         }
 
         const header =
-            `<strong>${name}</strong> &nbsp;` +
-            `\`${before}\` ${triPills(beforeDirect.c, beforeDirect.h, beforeDirect.m, 'Before (direct)')}` +
+            `<strong>${name} : ${before}</strong> <i>(old)</i> ` +
+            `${triPills(beforeDirect.c, beforeDirect.h, beforeDirect.m, 'Before (direct)')}` +
             (beforeTrans.c || beforeTrans.h || beforeTrans.m
                 ? ` &nbsp;+&nbsp; ${triPills(beforeTrans.c, beforeTrans.h, beforeTrans.m, 'Before (transitive)')}`
                 : '') +
             ` &nbsp;→&nbsp; ` +
-            `\`${after}\` ${triPills(afterDirect.c, afterDirect.h, afterDirect.m, 'After (direct)')}` +
+            `<strong>${after}</strong> <i>(new)</i> ${triPills(afterDirect.c, afterDirect.h, afterDirect.m, 'After (direct)')}` +
             (afterTrans.c || afterTrans.h || afterTrans.m
                 ? ` &nbsp;+&nbsp; ${triPills(afterTrans.c, afterTrans.h, afterTrans.m, 'After (transitive)')}`
                 : '');
