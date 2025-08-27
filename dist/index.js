@@ -38351,7 +38351,9 @@ function legendDetails() {
 
 <details><summary>Legend & Colors</summary>
 
+&nbsp;
 **Severity:** ${shield("C", "Critical", SEV.critical)} ${shield("H", "High", SEV.high)} ${shield("M", "Medium", SEV.medium)}  
+
 **Badges:** numbers show count of policy violations at that severity.
 
 </details>
