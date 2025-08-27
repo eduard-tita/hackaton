@@ -38361,7 +38361,7 @@ async function run() {
     core.info("Successfully read source-dependency-tree.txt");
     sourceDependencyTree.split("\n").slice(0, 20).forEach((line, index) => core.info(`${index + 1}: ${line}`));
     const sourceDependencies = parseDependencyTreeOutput(sourceDependencyTree);
-    filePath = path.resolve(process.cwd(), "target-dependency-tree.txt");
+    filePath = path.resolve(process.cwd(), "target-temp", "target-dependency-tree.txt");
     const masterDependencyTree = (0, import_fs.readFileSync)(filePath, "utf-8");
     core.info("Successfully read target-dependency-tree.txt");
     masterDependencyTree.split("\n").slice(0, 20).forEach((line, index) => core.info(`${index + 1}: ${line}`));
