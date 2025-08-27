@@ -38409,7 +38409,6 @@ async function run() {
 
 `;
     commentBody += statRow(introducedCount, upgradeCount, removedCount) + "\n";
-    commentBody += legendDetails();
     if (introduced.length) {
       commentBody += sectionHeading("\u{1F9E9}", "New Components");
       for (const dep of introduced) {
@@ -38545,6 +38544,7 @@ async function run() {
         commentBody += endDetails();
       }
     }
+    commentBody += legendDetails();
     await postComment(commentBody);
   } catch (error) {
     core.setFailed(`Failed: ${error.message}`);

@@ -303,7 +303,6 @@ async function run(): Promise<void> {
     let commentBody = `## 🧪 Sonatype IQ • PR Risk Dashboard\n\n`;
     commentBody += `*Snapshot of dependency policy risk introduced by this PR*\n\n`;
     commentBody += statRow(introducedCount, upgradeCount, removedCount) + '\n';
-    commentBody += legendDetails();
 
     // === New Components ===
     if (introduced.length) {
@@ -466,6 +465,8 @@ async function run(): Promise<void> {
         commentBody += endDetails();
       }
     }
+
+    commentBody += legendDetails();
 
     await postComment(commentBody);
   } catch (error) {
