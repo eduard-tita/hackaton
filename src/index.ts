@@ -334,7 +334,7 @@ async function run(): Promise<void> {
         commentBody += startDetails(header);
 
         // Direct findings
-        commentBody += renderAlertsTable(directSummary);
+        commentBody += '\n&nbsp;\n' + renderAlertsTable(directSummary);
 
         // Transitives with alerts
         if (dep.children?.length) {
@@ -411,7 +411,7 @@ async function run(): Promise<void> {
 
         commentBody += startDetails(header);
 
-        commentBody += `**Old version: \`${before}\`**\n\n`;
+        commentBody += `\n&nbsp;\n**Old version: \`${before}\`**\n\n`;
         commentBody += renderAlertsTable(beforeSummary);
 
         commentBody += `\n\n**New version: \`${after}\`**\n\n`;
@@ -451,7 +451,7 @@ async function run(): Promise<void> {
         commentBody += startDetails(header);
 
         // Direct table
-        commentBody += renderAlertsTable(directSummary);
+        commentBody += '\n&nbsp;\n' + renderAlertsTable(directSummary);
 
         // Per-transitive details (only if any alerts)
         if (dep.children?.length) {

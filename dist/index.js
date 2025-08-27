@@ -38435,7 +38435,7 @@ async function run() {
         }
         const header = componentSummaryLine(nameOf(dep), versionOf(dep), "new", direct, trans);
         commentBody += startDetails(header);
-        commentBody += renderAlertsTable(directSummary);
+        commentBody += "\n&nbsp;\n" + renderAlertsTable(directSummary);
         if (dep.children?.length) {
           for (const child of dep.children) {
             const childSummary = await getComponentSummary(child.identifier);
@@ -38495,7 +38495,9 @@ async function run() {
         }
         const header = `<strong>${name} : ${before}</strong> <i>(old)</i>&nbsp; ${triPills(beforeDirect.c, beforeDirect.h, beforeDirect.m, "Before (direct)")}` + (beforeTrans.c || beforeTrans.h || beforeTrans.m ? ` <strong>&nbsp;+&nbsp;</strong> ${triPills(beforeTrans.c, beforeTrans.h, beforeTrans.m, "Before (transitive)")}` : "") + ` &nbsp;<strong>\u2192</strong>&nbsp; <strong>${after}</strong> <i>(new)</i>&nbsp; ${triPills(afterDirect.c, afterDirect.h, afterDirect.m, "After (direct)")}` + (afterTrans.c || afterTrans.h || afterTrans.m ? ` <strong>&nbsp;+&nbsp;</strong> ${triPills(afterTrans.c, afterTrans.h, afterTrans.m, "After (transitive)")}` : "");
         commentBody += startDetails(header);
-        commentBody += `**Old version: \`${before}\`**
+        commentBody += `
+&nbsp;
+**Old version: \`${before}\`**
 
 `;
         commentBody += renderAlertsTable(beforeSummary);
@@ -38531,7 +38533,7 @@ async function run() {
         }
         const header = componentSummaryLine(nameOf(dep), versionOf(dep), "old", direct, trans);
         commentBody += startDetails(header);
-        commentBody += renderAlertsTable(directSummary);
+        commentBody += "\n&nbsp;\n" + renderAlertsTable(directSummary);
         if (dep.children?.length) {
           for (const child of dep.children) {
             const childSummary = await getComponentSummary(child.identifier);
