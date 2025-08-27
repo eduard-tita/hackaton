@@ -38361,9 +38361,9 @@ async function run() {
     core.info("Successfully read source-dependency-tree.txt");
     sourceDependencyTree.split("\n").slice(0, 20).forEach((line, index) => core.info(`${index + 1}: ${line}`));
     const sourceDependencies = parseDependencyTreeOutput(sourceDependencyTree);
-    filePath = path.resolve(process.cwd(), "master", "master-dependency-tree.txt");
+    filePath = path.resolve(process.cwd(), "target-dependency-tree.txt");
     const masterDependencyTree = (0, import_fs.readFileSync)(filePath, "utf-8");
-    core.info("Successfully read master-dependency-tree.txt");
+    core.info("Successfully read target-dependency-tree.txt");
     masterDependencyTree.split("\n").slice(0, 20).forEach((line, index) => core.info(`${index + 1}: ${line}`));
     const masterDependencies = parseDependencyTreeOutput(masterDependencyTree);
     const upgrades = detectUpgrades(masterDependencies, sourceDependencies);
@@ -38663,11 +38663,12 @@ async function getComponentSummary(componentIdentifier) {
   const iqServerUrl = "https://int-test.sonatype.app/platform";
   const username = process.env.USERNAME;
   const password = process.env.PASSWORD;
+  const appId = process.env.APP_ID;
   if (!iqServerUrl || !username || !password) {
     core.info("IQ Server is not authenticated due to missing configuration.");
     return void 0;
   }
-  const url2 = `${iqServerUrl}/rest/ide/scan/coordinates/kt-test?componentIdentifier=${componentIdentifier.toJson()}`;
+  const url2 = `${iqServerUrl}/rest/ide/scan/coordinates/${appId}?componentIdentifier=${componentIdentifier.toJson()}`;
   try {
     const config = await getAxiosConfig(url2, username, password, 5e3);
     const response = await axios_default.get(url2, config);
