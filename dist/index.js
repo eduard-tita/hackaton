@@ -38412,7 +38412,7 @@ async function run() {
 `;
     commentBody += statRow(introducedCount, upgradeCount, removedCount) + "\n";
     if (introduced.length) {
-      commentBody += sectionHeading("\u{1F9E9}", "New Components");
+      commentBody += sectionHeading("\u2795", "New Components");
       for (const dep of introduced) {
         const directSummary = await getComponentSummary(dep.identifier);
         const direct = {
@@ -38452,7 +38452,7 @@ async function run() {
       commentBody += "\n";
     }
     if (upgrades.length) {
-      commentBody += sectionHeading("\u2B06\uFE0F", "Updated Components");
+      commentBody += sectionHeading("\u2714\uFE0F", "Updated Components");
       for (const u of upgrades) {
         const name = u.name;
         const before = versionOf(u.from);

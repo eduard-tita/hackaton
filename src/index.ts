@@ -307,7 +307,7 @@ async function run(): Promise<void> {
 
     // === New Components ===
     if (introduced.length) {
-      commentBody += sectionHeading('🧩', 'New Components');
+      commentBody += sectionHeading('➕', 'New Components');
 
       for (const dep of introduced) {
         const directSummary = await getComponentSummary(dep.identifier);
@@ -353,7 +353,7 @@ async function run(): Promise<void> {
 
     // === Version Changes ===
     if (upgrades.length) {
-      commentBody += sectionHeading('⬆️', 'Updated Components');
+      commentBody += sectionHeading('✔️', 'Updated Components');
 
       for (const u of upgrades) {
         const name = u.name;
