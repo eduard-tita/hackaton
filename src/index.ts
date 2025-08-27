@@ -613,7 +613,7 @@ function createDependencyFromMavenCoordinates(mavenCoordinates: string[]): Depen
 async function getComponentSummary(
     componentIdentifier: ComponentIdentifier,
 ): Promise<ComponentSummary | undefined> {
-  const iqServerUrl = 'https://int-test.sonatype.app/platform';
+  const iqServerUrl = process.env.IQ_URL;
   const username = process.env.USERNAME;
   const password = process.env.PASSWORD;
   const appId = process.env.APP_ID;
