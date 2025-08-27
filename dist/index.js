@@ -38342,7 +38342,7 @@ function componentSummaryLine(name, version, label, direct, trans) {
 function sectionHeading(emoji, text) {
   return `
 
-### ${emoji} ${text}
+##${emoji} ${text}
 `;
 }
 function legendDetails() {
@@ -38406,11 +38406,10 @@ async function run() {
     const introducedCount = introduced.length;
     const removedCount = removed.length;
     const upgradeCount = upgrades.length;
-    let commentBody = `## \u{1F9EA} Sonatype IQ \u2022 Risk Dashboard
+    let commentBody = `#\u{1F9EA} Sonatype IQ \u2022 Risk Dashboard
 
 `;
     commentBody += statRow(introducedCount, upgradeCount, removedCount) + "\n";
-    commentBody += "\n---\n\n";
     if (introduced.length) {
       commentBody += sectionHeading("\u2795", "New Components");
       for (const dep of introduced) {

@@ -227,7 +227,7 @@ function componentSummaryLine(
 }
 
 function sectionHeading(emoji: string, text: string) {
-  return `\n\n### ${emoji} ${text}\n`;
+  return `\n\n##${emoji} ${text}\n`;
 }
 
 function legendDetails() {
@@ -301,10 +301,9 @@ async function run(): Promise<void> {
     const removedCount = removed.length;
     const upgradeCount = upgrades.length;
 
-    let commentBody = `## 🧪 Sonatype IQ • Risk Dashboard\n\n`;
+    let commentBody = `#🧪 Sonatype IQ • Risk Dashboard\n\n`;
     //commentBody += `*Snapshot of dependency policy risk introduced by this PR*\n\n`;
     commentBody += statRow(introducedCount, upgradeCount, removedCount) + '\n';
-    commentBody += '\n---\n\n';
 
     // === New Components ===
     if (introduced.length) {
